@@ -13,7 +13,7 @@ export function EcosystemSection({ items }: EcosystemSectionProps) {
 
   return (
     <section ref={ref} className="w-full overflow-hidden pt-8 pb-16 bg-bg-elevated/20">
-      <div className="flex items-center justify-center gap-3 mb-12 -translate-y-1">
+      <div className="flex items-center justify-center gap-3 mb-12 -translate-y-5">
         <motion.div 
           className="w-6 h-px bg-cipher/50"
           initial={{ scaleX: 0 }}
