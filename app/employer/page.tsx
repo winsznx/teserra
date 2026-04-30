@@ -63,7 +63,12 @@ export default function EmployerPage() {
   };
 
   return (
-    <div className="container mx-auto px-4 md:px-8 lg:px-12 py-8 lg:py-12 max-w-screen-xl flex flex-col gap-12 lg:gap-16">
+    <motion.div 
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="container mx-auto px-4 md:px-8 lg:px-12 py-8 lg:py-12 max-w-screen-xl flex flex-col gap-12 lg:gap-16"
+    >
       <div className="flex flex-col gap-4">
         <h1 className="text-display-2 font-display uppercase tracking-tight">Employer Dashboard</h1>
         <p className="text-body-lg text-text-secondary max-w-2xl">
@@ -241,6 +246,6 @@ export default function EmployerPage() {
           </AnimatePresence>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
