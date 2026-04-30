@@ -25,7 +25,7 @@ The PRDs at the root of this repo are the source of truth:
 - **[TESSERA_PRD_v2_Frontend.md](./TESSERA_PRD_v2_Frontend.md)** — UI/UX, design tokens, components, pages, microcopy.
 - **[TESSERA_PRD_v2_Engineering.md](./TESSERA_PRD_v2_Engineering.md)** — architecture, contracts, circuits, data flow.
 
-If the PRD and code disagree, the PRD wins. Either update the PRD intentionally or align the code — never let them drift silently.
+**Build exactly what the Frontend PRD specifies. Do not edit the PRD.** When reality contradicts the PRD or the spec is unclear, log an observation in [`gaps.md`](./gaps.md). Tim triages and decides whether to update the PRD. The PRD's stability is what makes it trustworthy.
 
 ## Aesthetic & UX rules
 
@@ -57,3 +57,34 @@ If the PRD and code disagree, the PRD wins. Either update the PRD intentionally 
 ## Open decisions
 
 [Frontend PRD §21](./TESSERA_PRD_v2_Frontend.md) documents the five intentionally-open design questions (form validation timing, wallet adapter scope, toast collision, address visual distinction, theme on first load). When you implement code touching any of them, follow §21's recommendation.
+
+## Drift & gaps
+
+**Never edit the PRD.** When the spec doesn't match reality (library behavior, missing state, ambiguous wording, version mismatch), log an observation in [`gaps.md`](./gaps.md) and continue building against the closest reasonable interpretation. Tim triages and decides whether the PRD itself needs to change.
+
+Format:
+
+```
+## YYYY-MM-DD — short title
+- PRD section: §X.Y of Frontend PRD (or Engineering PRD)
+- Observation: what reality looks like vs. what the PRD says
+- Interim build choice: how you proceeded
+- Status: open / triaged by Tim / closed
+```
+
+If the gap isn't logged, the next person hits it again. Non-negotiable.
+
+---
+
+## Progress log
+
+End-of-session ritual: **append one line below.** Date, what shipped, what's next. Keep it terse — this is the project heartbeat, not a journal.
+
+Format:
+```
+- YYYY-MM-DD — <what shipped>. Next: <what's next>.
+```
+
+### Entries
+
+- 2026-04-30 — repo initialized: Next.js 16.2.4 scaffold, Engineering + Frontend PRDs, AGENTS.md, gaps.md, Vercel-ready. Next: friend reads PRDs, runs `pnpm install && pnpm dev`, starts Frontend PRD §20 implementation order at item 1 (landing page).
