@@ -52,7 +52,7 @@ Pinned in [`package.json`](./package.json). Do not bump versions casually.
 | Styling | Tailwind CSS 4 | Design tokens in [`app/globals.css`](./app/globals.css). |
 | Components | shadcn/ui (to be added) | See [Frontend PRD §9](./TESSERA_PRD_v2_Frontend.md). |
 | Wallet | `@solana/wallet-adapter-react` (to be added) | Phantom + Backpack + Solflare. See [Frontend PRD §21.2](./TESSERA_PRD_v2_Frontend.md). |
-| Privacy SDK | `@umbra-privacy/sdk` 4.0.0 (to be added) | See [Engineering PRD §5](./TESSERA_PRD_v2_Engineering.md). |
+| Privacy SDK | `@umbra-privacy/sdk` 4.0.0 (to be added) | See [Engineering PRD §13 — Umbra SDK Integration Map](./TESSERA_PRD_v2_Engineering.md) and [§9 — System Architecture](./TESSERA_PRD_v2_Engineering.md). |
 
 ---
 
@@ -84,7 +84,7 @@ Environment variables (set in Vercel dashboard, not committed):
 | Variable | Scope | Source |
 |---|---|---|
 | `NEXT_PUBLIC_SOLANA_RPC` | client | Helius / Triton devnet URL |
-| `NEXT_PUBLIC_PROGRAM_ID` | client | Set after on-chain deploy (Engineering PRD Day 4) |
+| `NEXT_PUBLIC_PROGRAM_ID` | client | Set after Anchor program deploy ([Engineering PRD §21 — Sprint Plan, Day 4](./TESSERA_PRD_v2_Engineering.md)) |
 | `NEXT_PUBLIC_INDEXER_URL` | client | `https://indexer.umbraprivacy.com` (or our own) |
 | `AGENT_PRIVATE_KEY` | server only | For `/agent` demo mode. **Never** prefix with `NEXT_PUBLIC_`. |
 
