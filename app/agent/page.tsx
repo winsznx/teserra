@@ -190,7 +190,7 @@ export default function AgentPage() {
           
           <div 
             ref={scrollRef}
-            className="flex-1 bg-[#050608] border border-border-strong rounded-lg p-4 overflow-y-auto scrollbar-thin scrollbar-thumb-border-emphasis"
+            className="flex-1 bg-bg-base/60 backdrop-blur-sm border border-border-strong rounded-lg p-4 overflow-y-auto scrollbar-thin scrollbar-thumb-border-emphasis"
             role="log"
             aria-live="polite"
           >
