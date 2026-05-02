@@ -16,7 +16,7 @@ export function CTASection() {
       description: "Onboard your team to private payroll and secure their financial privacy.",
       label: "Employer Path",
       color: "border-border-strong",
-      hoverColor: "hover:border-border-emphasis hover:shadow-[0_8px_32px_rgba(0,0,0,0.4)]",
+      hoverColor: "hover:border-border-emphasis hover:shadow-2xl hover:shadow-bg-base/40",
       textColor: "text-cipher",
       accentColor: "text-cipher"
     },
@@ -26,7 +26,7 @@ export function CTASection() {
       description: "Scan your income and mint a ZK credential without exposing your history.",
       label: "Employee Path",
       color: "border-cipher/30",
-      hoverColor: "hover:border-cipher hover:shadow-[0_8px_32px_rgba(78,205,196,0.1)]",
+      hoverColor: "hover:border-cipher hover:shadow-2xl hover:shadow-cipher/10",
       textColor: "text-cipher",
       accentColor: "text-cipher",
       bg: "bg-cipher-muted/10"
@@ -37,7 +37,7 @@ export function CTASection() {
       description: "Integrate autonomous agents into the private x402 payment mesh.",
       label: "Developer Path",
       color: "border-border-strong",
-      hoverColor: "hover:border-border-emphasis hover:shadow-[0_8px_32px_rgba(0,0,0,0.4)]",
+      hoverColor: "hover:border-border-emphasis hover:shadow-2xl hover:shadow-bg-base/40",
       textColor: "group-hover:text-cipher",
       accentColor: "text-cipher"
     },
@@ -47,7 +47,7 @@ export function CTASection() {
       description: "Validate income proofs for loans, rentals, or DAO gating trustlessly.",
       label: "Verifier Path",
       color: "border-seal/30",
-      hoverColor: "hover:border-seal hover:shadow-[0_8px_32px_rgba(162,59,44,0.15)]",
+      hoverColor: "hover:border-seal hover:shadow-2xl hover:shadow-seal/15",
       textColor: "text-seal",
       accentColor: "text-seal"
     }
