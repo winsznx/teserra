@@ -125,7 +125,7 @@ function ProtocolStep({ id, title, icon: Icon, body, isLeft, accentColor }: any)
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <div className={`flex w-full ${isLeft ? 'justify-start' : 'lg:justify-end'} relative z-10`}>
+    <div className={`flex w-full ${isLeft ? 'justify-start' : 'lg:justify-end'} relative z-10 mb-8 lg:mb-0`}>
       <motion.div
         ref={ref}
         className="relative max-w-sm w-full flex"
