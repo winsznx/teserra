@@ -100,7 +100,7 @@ export default function VerifyPage() {
                         <motion.div 
                           initial={{ scale: 0.5, rotate: -15 }}
                           animate={{ scale: 1, rotate: 0 }}
-                          className="w-16 h-16 rounded-full bg-seal flex items-center justify-center shadow-[0_0_20px_rgba(162,59,44,0.4)]"
+                          className="w-16 h-16 rounded-full bg-seal flex items-center justify-center shadow-lg shadow-seal/40"
                         >
                           <Stamp className="w-10 h-10 text-text-inverse" />
                         </motion.div>
