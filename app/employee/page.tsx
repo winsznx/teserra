@@ -274,8 +274,8 @@ export default function EmployeePage() {
                         >
                           <motion.div
                             className="absolute inset-0 rounded-xl pointer-events-none"
-                            initial={{ boxShadow: "0 0 0px 0px rgba(162,59,44,0)" }}
-                            animate={{ boxShadow: "0 0 60px 8px rgba(162,59,44,0.15)" }}
+                            initial={{ boxShadow: "0 0 0px 0px transparent" }}
+                            animate={{ boxShadow: "0 0 60px 8px var(--seal-muted)" }}
                             transition={{ duration: 0.7, ease: [0, 0, 0.2, 1] }}
                           />
                           <SealCard 
