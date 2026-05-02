@@ -25,6 +25,10 @@
   --success: #5A8C5A;
   --warning: #E0A458;
   --error: #C3553F;
+
+  /* Theme-aware background gradient */
+  --bg-gradient-start: #12100e;
+  --bg-gradient-end: #0B0D10;
 }
 
 .light {
@@ -40,6 +44,10 @@
   --text-secondary: #4A4A4A;
   --text-muted: #7A7A7A;
   --text-inverse: #F5EFE0;
+
+  /* Theme-aware background gradient */
+  --bg-gradient-start: #FAF6EB;
+  --bg-gradient-end: #F5EFE0;
 }
 
 @theme {
@@ -99,7 +107,7 @@
 @layer base {
   body {
     background-color: var(--bg-base);
-    background: radial-gradient(ellipse 120% 80% at 50% 0%, #12100e 0%, #0B0D10 60%);
+    background: radial-gradient(ellipse 120% 80% at 50% 0%, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 60%);
     color: var(--text-primary);
     font-family: var(--font-sans);
     position: relative;
