@@ -60,3 +60,73 @@ The PRDs at the root of this repo are the source of truth:
 
 [Frontend PRD §21](./TESSERA_PRD_v2_Frontend.md) documents the five intentionally-open design questions (form validation timing, wallet adapter scope, toast collision, address visual distinction, theme on first load). When you implement code touching any of them, follow §21's recommendation.
 
+## Drift & gaps
+
+**Never edit the PRD.** When the spec doesn't match reality (library behavior, missing state, ambiguous wording, version mismatch), log an observation in [`gaps.md`](./gaps.md) and continue building against the closest reasonable interpretation. Tim triages and decides whether the PRD itself needs to change.
+
+Format:
+
+```
+## YYYY-MM-DD — short title
+- PRD section: §X.Y of Frontend PRD (or Engineering PRD)
+- Observation: what reality looks like vs. what the PRD says
+- Interim build choice: how you proceeded
+- Status: open / triaged by Tim / closed
+```
+
+If the gap isn't logged, the next person hits it again. Non-negotiable.
+
+---
+
+# Progress Log
+
+## 2026-04-30: Initial Frontend Scaffold & Page Shells
+
+Completed the end-to-end scaffolding of the TESSERA frontend per §20 of the PRD.
+
+- **Infrastructure:**
+  - Configured Next.js 16.2.4 with Turbopack and async data access patterns.
+  - Implemented Tailwind CSS 4 theme tokens and global design system (parchment/cyan).
+  - Integrated `next-themes` and `ThemeProvider`.
+- **Components:**
+  - Built atomic primitives (Button, Input, Badge, etc.) and composites (SealCard, AddressDisplay, LiveFeedItem).
+  - Implemented `OnboardingModal` for Umbra identity registration flow.
+- **Pages:**
+  - **Landing (`/`):** Implemented marketing narrative and CTAs.
+  - **Employer (`/employer`):** Built shielded payment submission flow with MPC simulation.
+  - **Employee (`/employee`):** Implemented 3-step credential generator (Scan/Configure/Prove).
+  - **Agent (`/agent`):** Created autonomous control panel with live terminal feed.
+  - **Verifier (`/verify`):** Developed simulated lending protocol integration demo.
+  - **Credential (`/credential/[address]`):** Built public credential viewer with SealCard.
+- **Quality:**
+  - Build successful (`pnpm build` passed).
+  - Responsive polish for mobile viewports.
+  - Accessibility audit (ARIA roles, focus rings).
+
+## 2026-04-30: Visual & Atmospheric Refinement
+
+- **Atmosphere:** Implemented a global noise texture overlay and radial gradient backgrounds in `globals.css` to move away from flat near-black to a textured, premium aesthetic.
+- **Hero Redesign:** Refined the Landing Page hero with typographic hierarchy improvements, drop-shadow depth, and ceremonial horizontal rules. Established a clear CTA hierarchy (Primary vs. Outline).
+- **Architectural Plaques:** Redesigned 'How It Works' section using architectural plaque styling with ghosted mono-labels, top-accent borders, and absolute-positioned iconography.
+- **Segment Differentiation:** Specialized the 'Humans' and 'Agents' cards with unique visual signatures (parchment neutral vs. cipher-tinted ink) and SVG watermarks.
+- **CTA Infrastructure:** Transformed the 'Get Started' section into a designed architectural block with seal-red accents and lifting card interactions.
+- **Component System:** Updated the Card depth and shadow system across the library. Professionalized the Status Banner iconography (Activity vs. Sparkles).
+- **Footer Expansion:** Built out a multi-column, detailed footer with ecosystem navigation, protocol trust signals, and network status indicators.
+- **Verification:** Verified all changes with a successful `pnpm build`.
+
+---
+
+## Progress log
+
+End-of-session ritual: **append one line below.** Date, what shipped, what's next. Keep it terse — this is the project heartbeat, not a journal.
+
+Format:
+```
+- YYYY-MM-DD — <what shipped>. Next: <what's next>.
+```
+
+### Entries
+
+- 2026-04-30 — repo initialized: Next.js 16.2.4 scaffold, Engineering + Frontend PRDs, AGENTS.md, gaps.md, Vercel-ready. Next: friend reads PRDs, runs `pnpm install && pnpm dev`, starts Frontend PRD §20 implementation order at item 1 (landing page).
+- 2026-05-02 — individual file push for hero refinement, ecosystem marquee, and asset integration. Next: triage pending PRD gaps.
+- 2026-05-02 — Full dashboard theme audit & fix: resolved hardcoded backgrounds and shadows across all pages for seamless light/dark mode support. Next: Implement real-time Solana credential scanning.
