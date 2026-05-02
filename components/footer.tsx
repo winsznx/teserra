@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export function Footer() {
   return (
-    <footer className="bg-[#08090A] border-t border-border-subtle py-24 mt-24">
+    <footer className="bg-bg-elevated border-t border-border-subtle py-24 mt-24">
       <div className="container mx-auto px-4 md:px-8 lg:px-12 max-w-screen-xl">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-12 mb-16">
           <div className="flex flex-col gap-6 md:col-span-1">
@@ -63,7 +63,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
+        <div className="pt-8 border-t border-border-subtle flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="text-[10px] font-mono text-text-muted uppercase tracking-[0.2em]">
             © 2026 TESSERA PROTOCOL · UMBRA SHIELDED
           </div>
