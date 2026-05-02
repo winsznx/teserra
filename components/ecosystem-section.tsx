@@ -12,8 +12,8 @@ export function EcosystemSection({ items }: EcosystemSectionProps) {
   const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section ref={ref} className="w-full overflow-hidden pt-8 pb-16 bg-bg-elevated/20">
-      <div className="flex items-center justify-center gap-3 mb-12 -translate-y-4">
+    <section ref={ref} className="w-full overflow-hidden pt- pb-16 bg-bg-elevated/20">
+      <div className="flex items-center justify-center gap-3 mb-24 translate-y-14">
         <motion.div 
           className="w-6 h-px bg-cipher/50"
           initial={{ scaleX: 0 }}
@@ -41,14 +41,14 @@ export function EcosystemSection({ items }: EcosystemSectionProps) {
       <div className="relative flex overflow-x-hidden">
         <div className="flex animate-marquee whitespace-nowrap gap-24 items-center py-4">
           {[...items, ...items].map((item, idx) => (
-            <div key={`${item}-${idx}`} className="flex flex-col items-center">
-              <div className="text-[10px] font-mono text-cipher/50 mb-2">
+            <div key={`${item}-${idx}`} className="flex flex-col items-center group cursor-default">
+              <div className="text-[10px] font-mono text-cipher/50 mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 0x{item.substring(0, 2)}
               </div>
               <div className="text-xl font-display font-bold tracking-[0.4em] text-text-primary">
                 {item}
               </div>
-              <div className="h-[1px] w-12 bg-cipher/40 mt-4 shadow-[0_0_8px_rgba(78,205,196,0.2)]" />
+              <div className="h-[1px] w-12 bg-cipher/40 mt-4 shadow-[0_0_8px_rgba(78,205,196,0.2)] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </div>
           ))}
         </div>
