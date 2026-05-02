@@ -3,7 +3,6 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { ShieldCheck, KeyRound, Award } from "lucide-react";
-import { fadeUp } from "@/lib/motion";
 
 export function HowItWorks() {
   const ref = useRef(null);
