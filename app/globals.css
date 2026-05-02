@@ -1,26 +1,141 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Dark Theme Tokens (Primary) */
+  --bg-base: #0B0D10;
+  --bg-elevated: #15181C;
+  --bg-surface: #1C2025;
+  --bg-overlay: rgba(11, 13, 16, 0.9);
+  --border-subtle: #2A2E34;
+  --border-strong: #3A3F47;
+  --border-emphasis: #5A6068;
+  --text-primary: #F5EFE0;
+  --text-secondary: #A8A199;
+  --text-muted: #6E6960;
+  --text-inverse: #0B0D10;
+
+  /* Accent Tokens (Stable) */
+  --seal: #A23B2C;
+  --seal-hover: #B84634;
+  --seal-muted: rgba(162, 59, 44, 0.15);
+  --cipher: #4ECDC4;
+  --cipher-hover: #5DD4CC;
+  --cipher-muted: rgba(78, 205, 196, 0.15);
+  --ink: #1A1F2E;
+  --success: #5A8C5A;
+  --warning: #E0A458;
+  --error: #C3553F;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.light {
+  /* Light Theme Tokens */
+  --bg-base: #F5EFE0;
+  --bg-elevated: #FAF6EB;
+  --bg-surface: #FFFFFF;
+  --bg-overlay: rgba(26, 26, 26, 0.9);
+  --border-subtle: #E0D9C7;
+  --border-strong: #C7BFA8;
+  --border-emphasis: #9A9281;
+  --text-primary: #1A1A1A;
+  --text-secondary: #4A4A4A;
+  --text-muted: #7A7A7A;
+  --text-inverse: #F5EFE0;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@theme {
+  --color-bg-base: var(--bg-base);
+  --color-bg-elevated: var(--bg-elevated);
+  --color-bg-surface: var(--bg-surface);
+  --color-bg-overlay: var(--bg-overlay);
+
+  --color-border-subtle: var(--border-subtle);
+  --color-border-strong: var(--border-strong);
+  --color-border-emphasis: var(--border-emphasis);
+
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-text-inverse: var(--text-inverse);
+
+  --color-seal: var(--seal);
+  --color-seal-hover: var(--seal-hover);
+  --color-seal-muted: var(--seal-muted);
+
+  --color-cipher: var(--cipher);
+  --color-cipher-hover: var(--cipher-hover);
+  --color-cipher-muted: var(--cipher-muted);
+
+  --color-ink: var(--ink);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-error: var(--error);
+
+  --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display), serif;
+  --font-mono: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  --animate-shimmer: shimmer 1.6s infinite;
+  --animate-marquee: marquee 40s linear infinite;
+
+  @keyframes shimmer {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(100%);
+    }
+  }
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  body {
+    background-color: var(--bg-base);
+    background: radial-gradient(ellipse 120% 80% at 50% 0%, #12100e 0%, #0B0D10 60%);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    position: relative;
+    min-height: 100vh;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  :focus-visible {
+    outline: none;
+    @apply ring-1 ring-cipher/50 ring-offset-4 ring-offset-bg-base;
+  }
+}
+
+@layer utilities {
+  .text-display-1 { @apply font-display text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight; }
+  .text-display-2 { @apply font-display text-3xl md:text-4xl font-semibold leading-[1.2] tracking-tight; }
+  .text-h2 { @apply font-display text-2xl font-semibold tracking-tight; }
+  .text-h3 { @apply font-display text-xl font-semibold tracking-tight; }
+  .text-body-lg { @apply text-lg leading-relaxed; }
+  .text-body { @apply text-base leading-relaxed; }
+  .text-body-sm { @apply text-sm leading-relaxed; }
+  .text-mono-lg { @apply font-mono text-lg; }
+  .text-mono { @apply font-mono text-sm; }
+  .text-caption { @apply text-xs leading-normal; }
+  .text-overline { @apply text-[10px] uppercase tracking-[0.12em] font-bold; }
+
+  .focus-ring {
+    outline: none;
+    @apply ring-2 ring-cipher ring-offset-2 ring-offset-bg-base;
+  }
 }

@@ -1,9 +1,11 @@
 <!-- BEGIN:nextjs-agent-rules -->
+
 # This is NOT the Next.js you know
 
 This repo runs **Next.js 16.2.4**. APIs, conventions, and file structure differ from older versions you may have seen in training data. Read the relevant guide in `node_modules/next/dist/docs/` or [the Next 16 release notes](https://nextjs.org/blog/next-16) before writing any code. Heed deprecation notices.
 
 **Critical Next 16 differences to remember:**
+
 - `middleware.ts` is renamed to `proxy.ts`. Runtime is **Node.js only** (not Edge).
 - Turbopack is the default bundler — no opt-in needed.
 - `params`, `searchParams`, `cookies()`, `headers()`, `draftMode()` are now **async**. Always `await` them.
@@ -37,7 +39,7 @@ The PRDs at the root of this repo are the source of truth:
 
 - **Never suppress type errors** with `as any`, `@ts-ignore`, or `@ts-expect-error`.
 - **No commented-out code.** Delete it.
-- **No comments that repeat what the code does.** Comment only the non-obvious *why*.
+- **No comments that repeat what the code does.** Comment only the non-obvious _why_.
 - **Match existing patterns.** If unsure, search the codebase before inventing a new convention.
 - **Pin versions exactly** for `next`, `react`, `@umbra-privacy/sdk`. No carets on those three.
 
@@ -58,33 +60,3 @@ The PRDs at the root of this repo are the source of truth:
 
 [Frontend PRD §21](./TESSERA_PRD_v2_Frontend.md) documents the five intentionally-open design questions (form validation timing, wallet adapter scope, toast collision, address visual distinction, theme on first load). When you implement code touching any of them, follow §21's recommendation.
 
-## Drift & gaps
-
-**Never edit the PRD.** When the spec doesn't match reality (library behavior, missing state, ambiguous wording, version mismatch), log an observation in [`gaps.md`](./gaps.md) and continue building against the closest reasonable interpretation. Tim triages and decides whether the PRD itself needs to change.
-
-Format:
-
-```
-## YYYY-MM-DD — short title
-- PRD section: §X.Y of Frontend PRD (or Engineering PRD)
-- Observation: what reality looks like vs. what the PRD says
-- Interim build choice: how you proceeded
-- Status: open / triaged by Tim / closed
-```
-
-If the gap isn't logged, the next person hits it again. Non-negotiable.
-
----
-
-## Progress log
-
-End-of-session ritual: **append one line below.** Date, what shipped, what's next. Keep it terse — this is the project heartbeat, not a journal.
-
-Format:
-```
-- YYYY-MM-DD — <what shipped>. Next: <what's next>.
-```
-
-### Entries
-
-- 2026-04-30 — repo initialized: Next.js 16.2.4 scaffold, Engineering + Frontend PRDs, AGENTS.md, gaps.md, Vercel-ready. Next: friend reads PRDs, runs `pnpm install && pnpm dev`, starts Frontend PRD §20 implementation order at item 1 (landing page).
