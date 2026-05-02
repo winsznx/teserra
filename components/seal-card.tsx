@@ -43,7 +43,7 @@ export function SealCard({
         duration: 0.6
       }}
       className={cn(
-        "relative overflow-hidden p-8 bg-bg-surface border border-seal/30 rounded-xl shadow-[0_0_40px_-10px_rgba(162,59,44,0.3)]",
+        "relative overflow-hidden p-8 bg-bg-surface border border-seal/30 rounded-xl shadow-xl shadow-seal/10",
         className
       )}
     >
