@@ -45,7 +45,7 @@ export function HeroSection() {
         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <pattern id="mosaic-hero" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse">
-              <path d="M40 0L80 40L40 80L0 40Z" fill="rgba(245,239,224,0.08)" />
+              <path d="M40 0L80 40L40 80L0 40Z" fill="currentColor" className="text-text-primary/10" />
             </pattern>
           </defs>
           <rect width="100%" height="100%" fill="url(#mosaic-hero)" />
@@ -97,7 +97,7 @@ export function HeroSection() {
         >
           <Link
             href="/employer"
-            className="h-12 px-10 flex items-center justify-center bg-text-primary text-bg-base font-bold rounded-md hover:bg-text-secondary transition-all hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-black/20"
+            className="h-12 px-10 flex items-center justify-center bg-text-primary text-bg-base font-bold rounded-md hover:bg-text-secondary transition-all hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-bg-base/10"
           >
             I&apos;m an Employer
           </Link>

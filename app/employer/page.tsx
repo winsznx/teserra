@@ -194,8 +194,8 @@ export default function EmployerPage() {
                         {payments.map((p) => (
                           <motion.tr
                             key={p.id}
-                            initial={{ opacity: 0, backgroundColor: "rgba(162,59,44,0.12)" }}
-                            animate={{ opacity: 1, backgroundColor: "rgba(162,59,44,0)" }}
+                            initial={{ opacity: 0, backgroundColor: "var(--seal-muted)" }}
+                            animate={{ opacity: 1, backgroundColor: "transparent" }}
                             transition={{ duration: 0.7, ease: [0, 0, 0.2, 1] }}
                             className="border-b border-border-subtle/50"
                           >

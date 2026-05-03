@@ -48,17 +48,18 @@ export function HumansAndAgents() {
               their income to a bank without exposing their wallet history.
               Portable, zero-knowledge financial reputation.
             </p>
-            <div className="absolute -bottom-8 -right-8 w-64 h-64 opacity-[0.1] pointer-events-none invert mix-blend-screen">
+            <div className="absolute -bottom-8 -right-8 w-64 h-64 opacity-[0.08] pointer-events-none dark:invert dark:mix-blend-screen mix-blend-multiply">
               <Image 
                 src="/human-meditation-v2.png" 
                 alt="Human Meditation" 
                 fill 
+                sizes="256px"
                 className="object-contain"
               />
             </div>
           </motion.div>
           <motion.div 
-            className="flex flex-col gap-6 p-10 rounded-lg bg-ink/60 border border-cipher/20 border-l-4 border-l-cipher/40 relative overflow-hidden"
+            className="flex flex-col gap-6 p-10 rounded-lg bg-bg-surface border border-cipher/20 border-l-4 border-l-cipher/40 relative overflow-hidden"
             initial={{ opacity: 0, x: 24 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.1 }}

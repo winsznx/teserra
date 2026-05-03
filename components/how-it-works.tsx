@@ -69,7 +69,7 @@ export function HowItWorks() {
         {cards.map((card, index) => (
           <motion.div
             key={card.id}
-            className="group relative flex flex-col gap-6 p-10 bg-bg-surface/50 border border-border-subtle rounded-sm transition-all duration-160 hover:border-t-cipher hover:shadow-[0_0_24px_rgba(78,205,196,0.08)] overflow-hidden"
+            className="group relative flex flex-col gap-6 p-10 bg-bg-surface/50 border border-border-subtle rounded-sm transition-all duration-160 hover:border-t-cipher hover:shadow-xl hover:shadow-cipher/10 overflow-hidden"
             initial="initial"
             animate={isInView ? "animate" : "initial"}
             variants={{

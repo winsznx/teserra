@@ -12,7 +12,7 @@ export function EcosystemSection({ items }: EcosystemSectionProps) {
   const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section ref={ref} className="w-full overflow-hidden pt- pb-16 bg-bg-elevated/20">
+    <section ref={ref} className="w-full overflow-hidden pb-2 bg-bg-elevated/20">
       <div className="flex items-center justify-center gap-3 mb-24 translate-y-14">
         <motion.div 
           className="w-6 h-px bg-cipher/50"
