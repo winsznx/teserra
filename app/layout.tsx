@@ -27,9 +27,13 @@ export const metadata: Metadata = {
 
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
-import { StatusBanner } from "@/components/status-banner";
+import { UmbraProvider } from "@/components/umbra-provider";
+import { WalletProviders } from "@/components/wallet-providers";
+import { PhantomWarningBanner } from "@/components/phantom-warning-banner";
 
 import { Toaster } from "sonner";
+
+import "@solana/wallet-adapter-react-ui/styles.css";
 
 export default function RootLayout({
   children,
@@ -50,15 +54,19 @@ export default function RootLayout({
           storageKey={THEME_STORAGE_KEY}
           disableTransitionOnChange
         >
-          <div className="min-h-screen flex flex-col">
-            <StatusBanner type="demo-mode" />
-            <Header />
-            <main className="flex-1">
-              {children}
-            </main>
-            <Footer />
-          </div>
-          <Toaster 
+          <WalletProviders>
+            <UmbraProvider>
+              <div className="min-h-screen flex flex-col">
+                <PhantomWarningBanner />
+                <Header />
+                <main className="flex-1">
+                  {children}
+                </main>
+                <Footer />
+              </div>
+            </UmbraProvider>
+          </WalletProviders>
+          <Toaster
             position="bottom-right" 
             toastOptions={{
               className: "bg-bg-surface border-border-strong text-text-primary font-sans",

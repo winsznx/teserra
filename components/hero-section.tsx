@@ -83,12 +83,11 @@ export function HeroSection() {
           style={{ originX: 0.5 }}
         />
         
-        <motion.p 
+        <motion.p
           variants={item}
           className="text-body-lg text-text-secondary max-w-xl mx-auto"
         >
-          Cryptographic creditworthiness on Solana. Prove your financial worth
-          without revealing your financial life. Built on Umbra.
+          Cryptographic creditworthiness on Solana. Built on Umbra.
         </motion.p>
         
         <motion.div 

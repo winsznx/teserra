@@ -11,8 +11,9 @@ export function HowItWorks() {
   const cards = [
     {
       id: "01",
-      title: "SHIELD",
-      description: "Employers pay salaries through Umbra's confidential transfers. Amounts and recipients are encrypted on-chain.",
+      title: "Shield",
+      description:
+        "Employers pay salaries through Umbra's confidential transfers. Amounts and recipients are encrypted on-chain.",
       icon: ShieldCheck,
       borderColor: "border-t-cipher/40",
       accentColor: "bg-cipher",
@@ -20,8 +21,9 @@ export function HowItWorks() {
     },
     {
       id: "02",
-      title: "PROVE",
-      description: "Employees scan their own income with a viewing key. A Groth16 ZK proof attests their income exceeds a threshold.",
+      title: "Prove",
+      description:
+        "Employees scan their own income with a viewing key. A Groth16 ZK proof attests their income exceeds a threshold — without revealing it.",
       icon: KeyRound,
       borderColor: "border-t-cipher/60",
       accentColor: "bg-cipher",
@@ -29,8 +31,9 @@ export function HowItWorks() {
     },
     {
       id: "03",
-      title: "MINT",
-      description: "The proof verifies on-chain in milliseconds. A compressed NFT credential is minted to your identity.",
+      title: "Mint",
+      description:
+        "The proof verifies on-chain in under 200,000 compute units. A compressed NFT credential is minted. Composable. Reusable. Private.",
       icon: Award,
       borderColor: "border-t-seal/40",
       accentColor: "bg-seal",
@@ -54,7 +57,7 @@ export function HowItWorks() {
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 0.4 }}
         >
-          The Protocol Flow
+          How it works
         </motion.span>
         <motion.div 
           className="w-6 h-px bg-cipher/50"

@@ -24,10 +24,10 @@ export function TxHashDisplay({ hash, className }: TxHashDisplayProps) {
     try {
       await navigator.clipboard.writeText(hash);
       setCopied(true);
-      toast.success("Transaction hash copied");
+      toast.success("Hash copied");
       setTimeout(() => setCopied(false), 1400);
-    } catch (err) {
-      toast.error("Failed to copy hash");
+    } catch {
+      toast.error("Couldn't copy");
     }
   };
 

@@ -31,10 +31,10 @@ export function AddressDisplay({
     try {
       await navigator.clipboard.writeText(address);
       setCopied(true);
-      toast.success("Address copied to clipboard");
+      toast.success("Address copied");
       setTimeout(() => setCopied(false), 1400);
-    } catch (err) {
-      toast.error("Failed to copy address");
+    } catch {
+      toast.error("Couldn't copy");
     }
   };
 
