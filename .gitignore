@@ -39,3 +39,18 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Day 0 secrets and artifacts (keypair, results, large circuit blobs)
+scripts/day0/.*
+circuits/*.ptau
+
+# Circuit build outputs — rebuilt by scripts/circuit-setup.sh on every checkout.
+/build/
+/public/circuits/*
+!/public/circuits/verification_key.json
+
+# Anchor program build outputs.
+programs/tessera/target/
+programs/tessera/.anchor/
+target/
+.anchor/

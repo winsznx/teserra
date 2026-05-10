@@ -1,0 +1,172 @@
+{
+  "address": "9jCxFKjcwt7uYZtPwfEh2gPt7BdKxW6qEwuwbFStWCKd",
+  "metadata": {
+    "name": "tessera",
+    "version": "0.2.0",
+    "spec": "0.1.0",
+    "description": "TESSERA — ZK-verified income credentials on Solana (staged-public-inputs revision)"
+  },
+  "instructions": [
+    {
+      "name": "initialize",
+      "discriminator": [175, 175, 109, 31, 13, 152, 155, 237],
+      "accounts": [
+        {
+          "name": "state",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              { "kind": "const", "value": [116, 101, 115, 115, 101, 114, 97, 95, 115, 116, 97, 116, 101] }
+            ]
+          }
+        },
+        { "name": "admin", "writable": true, "signer": true },
+        { "name": "merkle_tree" },
+        { "name": "system_program", "address": "11111111111111111111111111111111" }
+      ],
+      "args": []
+    },
+    {
+      "name": "init_proof_staging",
+      "discriminator": [109, 202, 178, 221, 248, 246, 230, 220],
+      "accounts": [
+        { "name": "buffer", "writable": true },
+        { "name": "owner", "writable": true, "signer": true },
+        { "name": "system_program", "address": "11111111111111111111111111111111" }
+      ],
+      "args": [
+        { "name": "batch_id", "type": { "array": ["u8", 32] } }
+      ]
+    },
+    {
+      "name": "append_public_inputs",
+      "discriminator": [161, 194, 84, 34, 100, 126, 119, 185],
+      "accounts": [
+        { "name": "buffer", "writable": true },
+        { "name": "owner", "signer": true }
+      ],
+      "args": [
+        { "name": "batch_id", "type": { "array": ["u8", 32] } },
+        { "name": "offset", "type": "u16" },
+        { "name": "inputs", "type": { "vec": { "array": ["u8", 32] } } }
+      ]
+    },
+    {
+      "name": "verify_income_proof",
+      "discriminator": [219, 113, 250, 50, 96, 71, 155, 206],
+      "accounts": [
+        { "name": "state", "writable": true },
+        { "name": "buffer", "writable": true },
+        { "name": "credential", "writable": true },
+        { "name": "owner", "writable": true, "signer": true },
+        { "name": "merkle_tree", "writable": true },
+        { "name": "tree_authority", "writable": true },
+        { "name": "log_wrapper" },
+        { "name": "compression_program" },
+        { "name": "bubblegum_program", "address": "BGUMAp9Gq7iTEuizy4pqaxsTyUCBK68MDfK752saRPUY" },
+        { "name": "system_program", "address": "11111111111111111111111111111111" }
+      ],
+      "args": [
+        { "name": "proof_a", "type": { "array": ["u8", 64] } },
+        { "name": "proof_b", "type": { "array": ["u8", 128] } },
+        { "name": "proof_c", "type": { "array": ["u8", 64] } },
+        { "name": "batch_id", "type": { "array": ["u8", 32] } },
+        { "name": "metadata_uri", "type": "string" }
+      ]
+    },
+    {
+      "name": "verify_credential",
+      "discriminator": [139, 189, 60, 127, 32, 241, 162, 134],
+      "accounts": [{ "name": "credential" }],
+      "args": [{ "name": "required_threshold", "type": "u64" }],
+      "returns": { "defined": { "name": "VerifyCredentialResult" } }
+    }
+  ],
+  "accounts": [
+    { "name": "TesseraState", "discriminator": [121, 49, 63, 230, 0, 126, 179, 158] },
+    { "name": "Credential", "discriminator": [145, 44, 68, 220, 67, 46, 100, 135] },
+    { "name": "NullifierRecord", "discriminator": [56, 18, 57, 175, 69, 202, 189, 70] }
+  ],
+  "events": [],
+  "errors": [
+    { "code": 6000, "name": "ProofVerificationFailed", "msg": "Groth16 proof verification failed" },
+    { "code": 6001, "name": "PublicSignalsLengthMismatch", "msg": "Public signals length mismatch" },
+    { "code": 6002, "name": "NullifierAlreadyConsumed", "msg": "Nullifier already consumed" },
+    { "code": 6003, "name": "CredentialAlreadyExists", "msg": "Credential already exists for this proof hash" },
+    { "code": 6004, "name": "InvalidProofSignal", "msg": "validProof signal must be 1" },
+    { "code": 6005, "name": "InvalidDateRange", "msg": "startTs must be < endTs" },
+    { "code": 6006, "name": "InvalidMerkleRoot", "msg": "Merkle root does not match a known Umbra pool state" },
+    { "code": 6007, "name": "CredentialExpired", "msg": "Credential expired" },
+    { "code": 6008, "name": "ThresholdBelowRequired", "msg": "Credential threshold below required" },
+    { "code": 6009, "name": "InvalidPublicInput", "msg": "Invalid public input encoding" },
+    { "code": 6010, "name": "NullifierAccountCountMismatch", "msg": "Nullifier record account count mismatch" },
+    { "code": 6011, "name": "BufferAlreadyFinalized", "msg": "Public input buffer is already finalized" },
+    { "code": 6012, "name": "BufferNotFinalized", "msg": "Public input buffer is not finalized" },
+    { "code": 6013, "name": "BufferWrongOwner", "msg": "Public input buffer owner mismatch" },
+    { "code": 6014, "name": "BufferOffsetOutOfRange", "msg": "Append offset is out of range" },
+    { "code": 6015, "name": "BufferCountMismatch", "msg": "Public input buffer count mismatch" },
+    { "code": 6016, "name": "BatchIdMismatch", "msg": "Batch id mismatch" }
+  ],
+  "types": [
+    {
+      "name": "VerifyCredentialResult",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          { "name": "valid", "type": "bool" },
+          { "name": "threshold", "type": "u64" },
+          { "name": "expires_at", "type": "i64" },
+          { "name": "reason", "type": "u8" }
+        ]
+      }
+    },
+    {
+      "name": "TesseraState",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          { "name": "admin", "type": "pubkey" },
+          { "name": "fee_lamports", "type": "u64" },
+          { "name": "total_credentials_issued", "type": "u64" },
+          { "name": "merkle_tree", "type": "pubkey" },
+          { "name": "bump", "type": "u8" }
+        ]
+      }
+    },
+    {
+      "name": "Credential",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          { "name": "owner", "type": "pubkey" },
+          { "name": "income_above_threshold", "type": "bool" },
+          { "name": "threshold", "type": "u64" },
+          { "name": "start_ts", "type": "i64" },
+          { "name": "end_ts", "type": "i64" },
+          { "name": "date_range_hash", "type": { "array": ["u8", 32] } },
+          { "name": "merkle_root", "type": { "array": ["u8", 32] } },
+          { "name": "employer_commitment", "type": { "array": ["u8", 32] } },
+          { "name": "proof_hash", "type": { "array": ["u8", 32] } },
+          { "name": "nullifier_hashes", "type": { "array": [{ "array": ["u8", 32] }, 32] } },
+          { "name": "issued_at", "type": "i64" },
+          { "name": "expires_at", "type": "i64" },
+          { "name": "issuer", "type": "pubkey" },
+          { "name": "cnft_asset_id", "type": "pubkey" },
+          { "name": "bump", "type": "u8" }
+        ]
+      }
+    },
+    {
+      "name": "NullifierRecord",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          { "name": "nullifier_hash", "type": { "array": ["u8", 32] } },
+          { "name": "credential_pda", "type": "pubkey" },
+          { "name": "consumed_at", "type": "i64" },
+          { "name": "bump", "type": "u8" }
+        ]
+      }
+    }
+  ]
+}
