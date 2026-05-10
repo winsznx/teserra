@@ -1,0 +1,46 @@
+# Vercel deploy ignore — Vercel has a 100 MB single-file upload limit and
+# this repo holds large circuit artifacts that aren't needed by the static
+# Vercel surface (the proof-gen path is gated on G81 in production demo;
+# when Cal ships the SDK scanner fix we'll route the zkey through Railway).
+
+node_modules
+.next
+.git
+.env
+.env.local
+.env.production
+.env.*.local
+.turbo
+coverage
+build
+
+# Powers-of-Tau ceremony artifacts (576 MB / 36 MB)
+circuits/*.ptau
+
+# Agent runtime + x402 routes live on Railway. next.config.ts rewrites
+# /api/agent/* and /api/x402/* there at the edge. Excluding the route
+# files keeps Vercel's serverless bundle under the 300 MB function-size
+# limit (Anchor + Umbra SDK + snarkjs etc. would otherwise blow it past).
+app/api/agent
+app/api/x402
+lib/agent-runtime.ts
+lib/x402-adapter.ts
+
+# Final zkey (166 MB, > Vercel's 100 MB single-file limit). The smaller
+# wasm (3.2 MB) and verification_key.json stay so the employee page has
+# breadcrumb assets for when the zkey is later fetched from Railway.
+public/circuits/*.zkey
+
+# Test fixtures + transcripts
+tests
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# OS / editor noise
+.DS_Store
+.idea
+.vscode
+
+# scripts/day0 — secrets + scripts that don't need to ship to Vercel
+scripts/day0/.keypair.json

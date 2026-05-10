@@ -1,101 +1,200 @@
-# Tessera
+# TESSERA — Private income proofs for humans and AI agents
 
-> Prove financial worth without revealing financial life. A Solana protocol for ZK-verified income credentials, built on Umbra Privacy and the agent economy.
+Prove your income exceeds a threshold over a date range, without revealing any
+amounts, employer identities, or transaction history. Same primitive works for
+AI agents earning shielded micropayments.
 
-This repository is the **frontend** for Tessera. The product, architecture, and implementation strategy are fully specified in the two PRDs at the root of this repo. Read those before changing code.
-
----
-
-## Read first (in order)
-
-1. **[TESSERA_PRD_v2_Frontend.md](./TESSERA_PRD_v2_Frontend.md)** — design tokens, component library, all 7 page wireframes, microcopy, mobile, accessibility, file organization, open decisions. The companion document for anyone building UI.
-2. **[TESSERA_PRD_v2_Engineering.md](./TESSERA_PRD_v2_Engineering.md)** — system architecture, on-chain contracts, ZK circuits, indexer, x402 adapter, day-by-day implementation order. Read this for context on the data the frontend consumes.
-
-**The Frontend PRD is the spec. Build it exactly. Do not edit the PRD.**
-
-Follow the [Frontend PRD](./TESSERA_PRD_v2_Frontend.md) section by section, design token by design token, wireframe by wireframe. If something doesn't match reality (a library doesn't behave the way the PRD assumes, a spec is ambiguous, a state is undefined), **don't change the PRD and don't improvise silently** — log an observation in [`gaps.md`](./gaps.md) and keep going against the closest reasonable interpretation.
+> Cryptographic creditworthiness on Solana. Built on Umbra.
 
 ---
 
-## Two files you must keep alive
+## What it does
 
-These two files are how the project stays coherent. Don't skip them.
-
-### [`gaps.md`](./gaps.md) — observations only, never edits to the PRD
-
-When you hit any of the following, append an entry to [`gaps.md`](./gaps.md):
-- A library / SDK / API behaves differently from what the PRD assumes.
-- A design spec is ambiguous, missing a state, or contradicts another section.
-- A dependency version in the PRD doesn't match what npm resolves.
-- A wireframe leaves something undefined (e.g., empty state for a list of zero credentials).
-- You made a judgment call the PRD didn't cover.
-
-**Rule: do not edit the PRD.** Log the observation. Tim triages and decides. The PRD is the contract — keeping it stable is what lets us trust it.
-
-If the gap isn't in `gaps.md`, it didn't happen, and the next person will hit it again. Non-negotiable.
-
-### [`AGENTS.md`](./AGENTS.md) — log progress at the bottom every working session
-
-End-of-session ritual: append a one-line entry to the **Progress log** section of [`AGENTS.md`](./AGENTS.md) — date, what shipped, what's next. This is the project's heartbeat. Two days of silence and we lose context. Don't forget.
+- **Employers pay salaries privately** through Umbra's confidential transfers.
+  Amounts and recipients are encrypted on-chain.
+- **Employees prove a threshold** with a Groth16 ZK proof over their own
+  shielded receipts. The credential is a compressed NFT minted to their
+  identity.
+- **Verifiers integrate with one CPI call.** No income data exposed; the
+  protocol returns `{valid, threshold, expires_at, reason}`.
 
 ---
 
-## Stack
+## Demo
 
-Pinned in [`package.json`](./package.json). Do not bump versions casually.
+Live deployment: <https://teserra.vercel.app> (frontend) +
+<https://tessera-agent-runtime-production.up.railway.app> (agent runtime).
 
-| Layer | Choice | Notes |
-|---|---|---|
-| Framework | **Next.js 16.2.4** | App Router, Turbopack default. `middleware.ts` is now `proxy.ts` in v16. Edge runtime is **not** supported in `proxy`; runtime is Node.js. |
-| Runtime | Node.js ≥ 20.9 | Hard requirement of Next 16. |
-| React | 19.2 | View Transitions, `useEffectEvent`, `<Activity/>` available. |
-| Styling | Tailwind CSS 4 | Design tokens in [`app/globals.css`](./app/globals.css). |
-| Components | shadcn/ui (to be added) | See [Frontend PRD §9](./TESSERA_PRD_v2_Frontend.md). |
-| Wallet | `@solana/wallet-adapter-react` (to be added) | Phantom + Backpack + Solflare. See [Frontend PRD §21.2](./TESSERA_PRD_v2_Frontend.md). |
-| Privacy SDK | `@umbra-privacy/sdk` 4.0.0 (to be added) | See [Engineering PRD §13 — Umbra SDK Integration Map](./TESSERA_PRD_v2_Engineering.md) and [§9 — System Architecture](./TESSERA_PRD_v2_Engineering.md). |
+Direct entry points (against Solana devnet):
+
+- [`/employer`](https://teserra.vercel.app/employer) — shield a payment
+- [`/employee`](https://teserra.vercel.app/employee) — generate a credential
+- [`/credential/BPSRtkvuqKpuaK1mSY3LgqtcZqupzz8FZdQ1GrKvDaFz`](https://teserra.vercel.app/credential/BPSRtkvuqKpuaK1mSY3LgqtcZqupzz8FZdQ1GrKvDaFz)
+  — view the canonical demo credential
+- [`/verify`](https://teserra.vercel.app/verify) — simulated lender integration
+- [`/agent`](https://teserra.vercel.app/agent) — autonomous agent + private x402 rail
+
+Demo video: _link added at submission time._
+
+![credential](public/readme-credential.png)
 
 ---
 
-## Local development
+## Built for Solana Frontier — SWARM track
+
+- **Innovation.** Novel ZK income-proof primitive composed with the first
+  x402-over-Umbra private payment rail. Technical detail in
+  [`TESSERA_PRD_v2_Engineering.md`](./TESSERA_PRD_v2_Engineering.md) §11
+  (circuit) and §15 (x402).
+- **Agentic sophistication.** A live agent runtime in
+  [`lib/agent-runtime.ts`](./lib/agent-runtime.ts) earns shielded income,
+  generates credentials, and pays for downstream x402-protected services —
+  all via the same protocol primitive humans use. SSE-streamed to the
+  `/agent` UI.
+- **Traction.** Real Anchor program deployed on devnet
+  ([`9jCxFKjcwt7uYZtPwfEh2gPt7BdKxW6qEwuwbFStWCKd`](https://explorer.solana.com/address/9jCxFKjcwt7uYZtPwfEh2gPt7BdKxW6qEwuwbFStWCKd?cluster=devnet)),
+  10/10 on-chain integration tests passing, real credential minted at
+  [`BPSRtkvuqKpuaK1mSY3LgqtcZqupzz8FZdQ1GrKvDaFz`](https://explorer.solana.com/address/BPSRtkvuqKpuaK1mSY3LgqtcZqupzz8FZdQ1GrKvDaFz?cluster=devnet),
+  real Umbra deposit landed by the agent x402 rail at
+  [`YKN5mf83…sdgp`](https://explorer.solana.com/tx/YKN5mf83p7JRViVTsC74hTXM3yUkA8e2vGc2Yu9Wm9pWL96tFtvPJ7wmu88qRPbXBJMHp4AWYv7rmTL7Fd3sdgp?cluster=devnet).
+
+---
+
+## Architecture
+
+| Layer | Where |
+|---|---|
+| Anchor program | [`programs/tessera/`](./programs/tessera/) — staged-public-inputs Groth16 verifier + Bubblegum CPI for cNFT credentials |
+| ZK circuit | [`circuits/income_proof.circom`](./circuits/income_proof.circom) — 386,672 R1CS constraints, depth-20 Merkle inclusion + nullifier binding + timestamp range. Phase-2 ceremony recorded in [`circuits/CEREMONY.md`](./circuits/CEREMONY.md). |
+| Umbra integration | [`lib/umbra-deposit.ts`](./lib/umbra-deposit.ts) — `@umbra-privacy/sdk@4.0.0`, `optionalData` round-trip per Cal's verification pattern |
+| x402 rail | [`lib/x402-adapter.ts`](./lib/x402-adapter.ts) — server-only challenge issuance + RPC-only verification (no indexer hot path) |
+| Agent runtime | [`lib/agent-runtime.ts`](./lib/agent-runtime.ts) — server-only event ring buffer + SSE feed + serial command queue |
+| Frontend | Next.js 16.2.4 (Turbopack) + Tailwind 4 + framer-motion + Wallet Standard adapters |
+
+Devnet defaults are baked into [`lib/constants.ts`](./lib/constants.ts):
+RPC `https://api.devnet.solana.com`, Umbra dUSDC mint
+`4oG4sjmopf5MzvTHLE8rpVJ2uyczxfsw2K84SUTpNDx7` (faucet at
+`https://faucet.umbraprivacy.com`).
+
+---
+
+## Run locally
+
+Prereqs: Node ≥ 20.9, pnpm 10+, a Solana wallet that supports Wallet
+Standard (Solflare recommended — Phantom rewrites transactions
+post-sign in a way Umbra rejects; the page surfaces a warning banner).
 
 ```bash
-# Install deps (pnpm required — repo uses pnpm-lock.yaml)
+git clone <this-repo> tessera
+cd tessera
 pnpm install
-
-# Start dev server (Turbopack)
+cp .env.example .env.local       # devnet defaults already filled
 pnpm dev
-# → http://localhost:3000
-
-# Production build
-pnpm build
-
-# Lint
-pnpm lint
 ```
+
+Open <http://localhost:3000>, connect Solflare on devnet. Onboarding
+flow registers your wallet's Umbra identity (one signature, idempotent).
+
+For pre-funded testing, the canonical Day 0 keypair lives at
+[`scripts/day0/.keypair.json`](./scripts/day0/.keypair.json) — already
+registered on devnet, holds dUSDC, and is the identity behind every
+fixture in this repo. Faucet more dUSDC at
+<https://faucet.umbraprivacy.com>.
 
 ---
 
-## Deployment
+## Deployment (Vercel + Railway split)
 
-Auto-deploys to **Vercel** on every push to `main`. Pull requests get unique preview URLs.
+Vercel hosts the static frontend; Railway hosts the agent runtime + x402
+endpoint. Vercel's serverless edge can't keep an in-memory agent registry
+across requests and times out long SSE streams, so the runtime needs a
+persistent Node process — Railway is that process.
 
-Environment variables (set in Vercel dashboard, not committed):
+- Frontend (Vercel): <https://teserra.vercel.app>
+- Agent runtime (Railway): <https://tessera-agent-runtime-production.up.railway.app>
 
-| Variable | Scope | Source |
-|---|---|---|
-| `NEXT_PUBLIC_SOLANA_RPC` | client | Helius / Triton devnet URL |
-| `NEXT_PUBLIC_PROGRAM_ID` | client | Set after Anchor program deploy ([Engineering PRD §21 — Sprint Plan, Day 4](./TESSERA_PRD_v2_Engineering.md)) |
-| `NEXT_PUBLIC_INDEXER_URL` | client | `https://indexer.umbraprivacy.com` (or our own) |
-| `AGENT_PRIVATE_KEY` | server only | For `/agent` demo mode. **Never** prefix with `NEXT_PUBLIC_`. |
+`next.config.ts` rewrites `/api/agent/*` and `/api/x402/*` to the Railway
+origin when `NEXT_PUBLIC_AGENT_API_BASE` is set. The
+`<AgentLiveFeed>` `EventSource` connects to Railway directly (Vercel can't
+proxy SSE reliably). The Dockerfile builds Next.js in `output: "standalone"`
+mode.
+
+### Railway one-time setup
+
+```bash
+# 1. From the repo root:
+railway init                             # link to a new Railway project
+railway up                               # build via Dockerfile, deploy
+
+# 2. Set env vars (do this in the Railway dashboard or via CLI):
+railway variables set NEXT_PUBLIC_SOLANA_RPC="https://api.devnet.solana.com"
+railway variables set NEXT_PUBLIC_SOLANA_WSS="wss://api.devnet.solana.com"
+railway variables set NEXT_PUBLIC_INDEXER_URL="https://utxo-indexer.api-devnet.umbraprivacy.com"
+railway variables set NEXT_PUBLIC_USDC_MINT="4oG4sjmopf5MzvTHLE8rpVJ2uyczxfsw2K84SUTpNDx7"
+railway variables set NEXT_PUBLIC_PROGRAM_ID="9jCxFKjcwt7uYZtPwfEh2gPt7BdKxW6qEwuwbFStWCKd"
+railway variables set ALLOWED_ORIGIN="*"   # tighten to the Vercel URL after Vercel deploys
+
+# 3. Day 0 keypair as base64 secret (never commit, never push to Vercel):
+KEYPAIR_B64=$(node -e "console.log(Buffer.from(JSON.parse(require('fs').readFileSync('scripts/day0/.keypair.json'))).toString('base64'))")
+railway variables set AGENT_DAY0_KEYPAIR_BASE64="$KEYPAIR_B64"
+```
+
+### Vercel one-time setup
+
+```bash
+vercel link                              # link to a Vercel project
+vercel env add NEXT_PUBLIC_SOLANA_RPC production
+vercel env add NEXT_PUBLIC_SOLANA_WSS production
+vercel env add NEXT_PUBLIC_INDEXER_URL production
+vercel env add NEXT_PUBLIC_USDC_MINT production
+vercel env add NEXT_PUBLIC_PROGRAM_ID production
+vercel env add NEXT_PUBLIC_AGENT_API_BASE production   # paste the Railway URL
+vercel deploy --prod
+```
+
+After both deploys land, tighten the Railway `ALLOWED_ORIGIN` env var to
+the Vercel URL only (replace the `*`).
+
+---
+
+## Tests
+
+```bash
+pnpm test                                        # 162 + 1 skipped (integration)
+pnpm test:lib                                    # alias for the same vitest run
+cd programs/tessera && anchor test --skip-build  # 10/10 on-chain integration
+```
+
+Unit + component coverage is in [`tests/`](./tests/). Live-devnet checks
+are gated behind `RUN_INTEGRATION=1`; an end-to-end agent x402 round-trip
+is in [`tests/lib/agent-runtime-x402.test.ts`](./tests/lib/agent-runtime-x402.test.ts).
+The Day 0 validation gate is reproduced by
+[`scripts/day0/`](./scripts/day0/) (start with `_lib.ts` and follow the
+numbered scripts).
 
 ---
 
 ## Project conventions
 
-See [`AGENTS.md`](./AGENTS.md) for the rules every contributor — human or AI — must follow when editing this repo.
+- [`AGENTS.md`](./AGENTS.md) — voice, contributor rules, end-of-session
+  Progress log.
+- [`gaps.md`](./gaps.md) — every PRD ↔ reality observation, ordered by
+  ID. Don't edit the PRDs; log here instead.
+- [`scripts/day0/REPORT.md`](./scripts/day0/REPORT.md) — what shipped each
+  session and why. Ground truth for the build's history.
+- [`TESSERA_PRD_v2_Frontend.md`](./TESSERA_PRD_v2_Frontend.md),
+  [`TESSERA_PRD_v2_Engineering.md`](./TESSERA_PRD_v2_Engineering.md) — the
+  spec. Stable on purpose.
 
 ---
 
-## Status
+## Acknowledgments
 
-**Pre-implementation.** The frontend scaffold is fresh from `create-next-app`. The PRDs are the source of truth. Pages, components, and wallet integration are still to be built per [Frontend PRD §20 — Implementation Order](./TESSERA_PRD_v2_Frontend.md).
+- **Umbra Privacy team** — especially `@typi_cal_` for the x402
+  verification pattern (`optional_data` + computation-account callback,
+  no indexer on the hot path) and SDK v4 guidance.
+- **Lightprotocol's [groth16-solana](https://github.com/Lightprotocol/groth16-solana)**
+  — the verifier crate that made on-chain ZK feasible inside Solana's
+  compute-unit budget.
+- **Metaplex Bubblegum** — compressed-NFT credential storage.
+- Built solo for Colosseum's Solana Frontier — SWARM track, 2026.

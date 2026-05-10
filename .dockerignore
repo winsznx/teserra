@@ -1,0 +1,29 @@
+node_modules
+.next
+.git
+.env
+.env.local
+.env.production
+.env.*.local
+.vercel
+.turbo
+coverage
+
+# scripts/day0/.keypair.json is a local-dev convenience — the Railway image
+# never has access to the keypair file; the secret travels via env var.
+scripts/day0/.keypair.json
+
+# Test fixtures + transcripts
+tests
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# OS / editor noise
+.DS_Store
+.idea
+.vscode
+
+# Docs (already published in the repo / Vercel)
+*.md
+!README.md
